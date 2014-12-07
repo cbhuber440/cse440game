@@ -6,6 +6,10 @@ public class Jump : MonoBehaviour {
 	public float multiplier;
 	public bool canJump = true;
 
+	void OnTriggerEnter2D(Collider2D col)
+	{ if (col.gameObject.tag == "burger") 
+		{ Destroy (col.gameObject); } 
+	}
 	void OnCollisionEnter2D(Collision2D coll)
 	{
 		if (coll.gameObject.tag == "ground") {
