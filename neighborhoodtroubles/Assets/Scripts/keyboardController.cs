@@ -3,12 +3,39 @@ using System.Collections;
 public class keyboardController : MonoBehaviour {
 	public float moveSpeed;
 	bool facingRight = true;
+	public void SetColliderForSprite( int spriteNum )
+	{
+		colliders[currentColliderIndex].enabled = false;
+		currentColliderIndex = spriteNum;
+		colliders[currentColliderIndex].enabled = true;
+	}
+	private Vector3 moveDirection;
+	[SerializeField]
+	private PolygonCollider2D[] colliders;
+	private int currentColliderIndex = 0;
+	private bool isInvincible = false;
+	private float timeSpentInvincible;
+	private int lives = 3;
+
 	void Start ()
 	{
 	}
 	void Update () {
 		movement ();
+		if (isInvincible)
+		{
+			timeSpentInvincible += Time.deltaTime;
+			if (timeSpentInvincible < 3f) {
+				float remainder = timeSpentInvincible % .3f;
+				renderer.enabled = remainder > .15f; 
+			}
+			else {
+				renderer.enabled = true;
+				isInvincible = false;
+			}
+		}
 	}
+
 	void movement()
 	{
 		if (Input.GetKey (KeyCode.A))
@@ -48,5 +75,17 @@ public class keyboardController : MonoBehaviour {
 		Vector3 theScale = transform.localScale;
 		theScale.x *= -1;
 		transform.localScale = theScale;
+	}
+
+	void OnTriggerEnter2D( Collider2D other )
+	{
+		if (!isInvincible && other.CompareTag("enemy"))
+		{
+			isInvincible = true;
+			timeSpentInvincible = 0;
+			if (--lives <= 0) {
+				Debug.Log("You lost!");
+			}
+		}
 	}
 }

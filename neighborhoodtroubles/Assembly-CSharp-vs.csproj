@@ -49,9 +49,8 @@
      <Compile Include="Assets\Scripts\Jump.cs" />
      <Compile Include="Assets\Scripts\animationController.cs" />
      <Compile Include="Assets\Scripts\keyboardController.cs" />
-     <Compile Include="Assets\Scripts\keyboardInput.cs" />
-     <Compile Include="Assets\killplayer.cs" />
-     <Compile Include="Assets\movement.cs" />
+     <Compile Include="Assets\Scripts\killplayer.cs" />
+     <Compile Include="Assets\Scripts\movement.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
