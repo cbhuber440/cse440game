@@ -10,7 +10,7 @@ public class keyboardController : MonoBehaviour {
 		colliders[currentColliderIndex].enabled = true;
 	}
 	private Vector3 moveDirection;
-	[SerializeField]
+
 	private PolygonCollider2D[] colliders;
 	private int currentColliderIndex = 0;
 	private bool isInvincible = false;
@@ -22,7 +22,7 @@ public class keyboardController : MonoBehaviour {
 	}
 	void Update () {
 		movement ();
-		if (isInvincible)
+		if (isInvincible == true)
 		{
 			timeSpentInvincible += Time.deltaTime;
 			if (timeSpentInvincible < 3f) {
@@ -79,10 +79,11 @@ public class keyboardController : MonoBehaviour {
 
 	void OnTriggerEnter2D( Collider2D other )
 	{
-		if (!isInvincible && other.CompareTag("enemy"))
+		if (other.CompareTag ("enemy"))
 		{
 			isInvincible = true;
-			timeSpentInvincible = 0;
+			timeSpentInvincible = 3;
+			lives -= 1;
 			if (--lives <= 0) {
 				Debug.Log("You lost!");
 			}
